@@ -1,0 +1,18 @@
+{
+  "name": "crypto-unicorn-community-island",
+  "description": "Crypto Unicorn Community Island for Sunflower Land.",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run clean && esbuild ./src/Scene.ts --bundle --minify --tsconfig=tsconfig.json --outfile=public/Scene.js",
+    "dev": "npm run clean && esbuild ./src/Scene.ts --bundle --minify --watch --tsconfig=tsconfig.json --outfile=public/Scene.js",
+    "clean": "rimraf public/Scene.js"
+  },
+  "dependencies": {
+    "esbuild": "0.18.15",
+    "phaser": "^3.60.0",
+    "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1"
+  }
+}
