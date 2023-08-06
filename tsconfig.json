@@ -5,7 +5,8 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "outDir": "public", // Output directory for the compiled JavaScript files
-    "strict": true
+    "strict": true,
+    "jsx": "react-jsx"
   },
   "include": ["src"], // Replace "src" with the directory containing your TypeScript files
   "lib": ["es6", "dom", "dom.iterable", "scripthost"],

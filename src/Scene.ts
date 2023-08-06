@@ -1,7 +1,43 @@
 import { Clothing, DefaultNPC } from "./types";
 import Phaser from "phaser";
 
+type UnicornName = "dazzle" | "razzle" | "bazzle" | "cazze" | "fazzle";
+
+type Progress = {
+  unicornsFedAt: Partial<Record<UnicornName, number>>;
+
+  hornMintedAt?: number;
+};
+
+type Unicorn = {
+  name: UnicornName;
+  image: string;
+  coordinates: { x: number; y: number };
+  requirements: Record<string, number>;
+  introduction: string;
+  conclusion: string;
+};
+const UNICORNS: Unicorn[] = [
+  {
+    name: "bazzle",
+    image: "http://localhost:3003/white_unicorn.png",
+    coordinates: { x: 352, y: 500 },
+    requirements: { Carrot: 1 },
+    introduction: "Yo Yo",
+    conclusion: "Conclusion",
+  },
+];
+
+const api = new (window as any).CommunityAPI({
+  id: "unicorn_island",
+  apiKey: "?", // Non sensitive data (client side key)
+});
+
 export default class ExternalScene extends window.BaseScene {
+  private progress: Progress = {
+    unicornsFedAt: {},
+  };
+
   constructor() {
     super({
       name: "local",
@@ -38,19 +74,68 @@ export default class ExternalScene extends window.BaseScene {
       "world/Teeny Tiny Pixls5.xml"
     );
 
-    // TODO - deployed URLS
-    this.load.image(
-      "white_unicorn",
-      "https://localhost:3003/white_unicorn.png"
-    );
+    UNICORNS.forEach((unicorn) => {
+      this.load.image(unicorn.name, unicorn.image);
+    });
   }
 
   create() {
     super.create();
 
-    const whiteUnicorn = this.add.sprite(106, 352, "white_unicorn");
-    whiteUnicorn.setInteractive({ cursor: "pointer" }).on("pointerdown", () => {
-      console.log("Open Unicorn");
+    UNICORNS.forEach((unicorn) => {
+      const unicornImage = this.add.sprite(
+        unicorn.coordinates.x,
+        unicorn.coordinates.y,
+        unicorn.name
+      );
+
+      unicornImage
+        .setInteractive({ cursor: "pointer" })
+        .on("pointerdown", () => {
+          if (!!this.progress.unicornsFedAt[unicorn.name]) {
+            window.openModal({
+              jsx: unicorn.conclusion,
+            });
+
+            return;
+          }
+
+          const inventory = api.game.inventory;
+          const hasIngredients = Object.keys(unicorn.requirements).every(
+            (name) => {
+              return (
+                !!inventory[name] &&
+                inventory[name].gte(unicorn.requirements[name])
+              );
+            }
+          );
+
+          console.log({ inventory });
+
+          let introduction = unicorn.introduction;
+
+          if (hasIngredients) {
+            introduction = `${introduction} It looks like you have what I need!`;
+          } else {
+            introduction = `${introduction} Oh no, you don't have what I need.`;
+          }
+
+          window.openModal({
+            jsx: introduction,
+            buttons: hasIngredients
+              ? [
+                  {
+                    text: "Feed",
+                    closeModal: true,
+                    // TODO - implement
+                    cb: () => {
+                      this.feed(unicorn.name);
+                    },
+                  },
+                ]
+              : [],
+          });
+        });
     });
 
     this.initialiseNPCs([
@@ -82,6 +167,40 @@ export default class ExternalScene extends window.BaseScene {
     spaceBar.on("down", () => {
       this.scene.start("default");
     });
+  }
+
+  async initialise() {
+    // Show loader??
+
+    const island = api.loadIsland();
+
+    if (island?.metadata) {
+      this.progress = JSON.parse(island.metadata);
+    }
+
+    // Remove loader??
+  }
+
+  async feed(name: UnicornName) {
+    if (!!this.progress.unicornsFedAt[name]) {
+      throw new Error(`${name} already fed`);
+    }
+
+    const progress: Progress = {
+      ...this.progress,
+      unicornsFedAt: {
+        ...(this.progress.unicornsFedAt ?? {}),
+        [name]: Date.now(),
+      },
+    };
+
+    const requirements = UNICORNS.find((u) => u.name === name)?.requirements;
+    await api.burn({
+      metadata: JSON.stringify(progress),
+      items: requirements,
+    });
+
+    this.progress = progress;
   }
 
   update() {

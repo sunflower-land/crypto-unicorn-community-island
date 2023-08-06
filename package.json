@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "npm run clean && esbuild ./src/Scene.ts --bundle --minify --tsconfig=tsconfig.json --outfile=public/Scene.js",
-    "dev": "npm run clean && esbuild ./src/Scene.ts --bundle --minify --watch --tsconfig=tsconfig.json --outfile=public/Scene.js",
+    "dev": "npm run clean && esbuild ./src/Scene.ts --bundle --minify --watch --tsconfig=tsconfig.json --outfile=public/Scene.js --external:react",
     "clean": "rimraf public/Scene.js",
     "serve": "vite"
   },
@@ -17,5 +17,8 @@
     "rimraf": "^5.0.1",
     "vite": "^2.4.0",
     "vite-plugin-compress": "^2.1.0"
+  },
+  "resolutions": {
+    "react": "external"
   }
 }
