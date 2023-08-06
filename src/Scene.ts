@@ -1,7 +1,13 @@
 import { Clothing, DefaultNPC } from "./types";
 import Phaser from "phaser";
 
-type UnicornName = "dazzle" | "razzle" | "bazzle" | "cazze" | "fazzle";
+// Random names
+type UnicornName =
+  | "starlight"
+  | "sparklehoof"
+  | "blossom"
+  | "thunderdash"
+  | "moonbeam";
 
 type Progress = {
   unicornsFedAt: Partial<Record<UnicornName, number>>;
@@ -19,12 +25,49 @@ type Unicorn = {
 };
 const UNICORNS: Unicorn[] = [
   {
-    name: "bazzle",
+    name: "starlight",
     image: "http://localhost:3003/white_unicorn.png",
-    coordinates: { x: 352, y: 500 },
+    coordinates: { x: 352, y: 450 },
     requirements: { Carrot: 1 },
-    introduction: "Yo Yo",
-    conclusion: "Conclusion",
+    introduction:
+      "Hello, kind traveler! I'm Starlight and I absolutely adore pumpkin gazing. A bowl of the most delightful Pumpkin soup would make my heart soar!",
+    conclusion: "?",
+  },
+  {
+    name: "sparklehoof",
+    image: "http://localhost:3003/black_unicorn.png",
+    coordinates: { x: 541, y: 293 },
+    requirements: { Carrot: 1 },
+    introduction:
+      "Hey there! The name's Sparklehoof, and I'm the mischievous one among my siblings. I enjoy playing pranks and making others laugh. To satisfy my hunger, I crave 20 potatoes!",
+    conclusion: "?",
+  },
+  {
+    name: "thunderdash",
+    image: "http://localhost:3003/grey_unicorn.png",
+    coordinates: { x: 399, y: 110 },
+    requirements: { Carrot: 1 },
+    introduction:
+      "Yo! Thunderdash here, the adventurous and daring unicorn! I love racing through the fields, feeling the wind on my mane. A lightning-quick sugar carrot would be the ultimate fuel to keep my energy high!",
+    conclusion: "?",
+  },
+  {
+    name: "blossom",
+    image: "http://localhost:3003/grey_unicorn.png",
+    coordinates: { x: 156, y: 142 },
+    requirements: { Carrot: 1 },
+    introduction:
+      "Greetings! I'm Blossom, the gentle and nurturing soul of the group. I spend most of my time tending to the flowers and plants of Sunflower Land. A collection of cauliflowers would satisfy me!",
+    conclusion: "?",
+  },
+  {
+    name: "moonbeam",
+    image: "http://localhost:3003/black_unicorn.png",
+    coordinates: { x: 135, y: 294 },
+    requirements: { Carrot: 1 },
+    introduction:
+      "Hello, kind stranger. I'm Moonbeam, the wisest and most mystical among my siblings. I find solace in the moon's glow and seek knowledge from ancient tomes. However, I also need some sun in my life to survive. To satisfy my hunger, I desire 100 Sunflowers",
+    conclusion: "?",
   },
 ];
 
