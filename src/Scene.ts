@@ -6,14 +6,13 @@ export default class ExternalScene extends window.BaseScene {
     super({
       name: "local",
       map: {
-        json: "http//localhost:3003/map.json",
         tilesetUrl:
           "https://sunflower-land.com/testnet-assets/world/map-extruded.png",
       },
       player: {
         spawn: {
-          x: 160,
-          y: 150,
+          x: 351,
+          y: 500,
         },
       },
       /* mmo: {
@@ -38,10 +37,21 @@ export default class ExternalScene extends window.BaseScene {
       "world/Teeny Tiny Pixls5.png",
       "world/Teeny Tiny Pixls5.xml"
     );
+
+    // TODO - deployed URLS
+    this.load.image(
+      "white_unicorn",
+      "https://localhost:3003/white_unicorn.png"
+    );
   }
 
   create() {
     super.create();
+
+    const whiteUnicorn = this.add.sprite(106, 352, "white_unicorn");
+    whiteUnicorn.setInteractive({ cursor: "pointer" }).on("pointerdown", () => {
+      console.log("Open Unicorn");
+    });
 
     this.initialiseNPCs([
       {
