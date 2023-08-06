@@ -6,9 +6,9 @@ export default class ExternalScene extends window.BaseScene {
     super({
       name: "local",
       map: {
+        json: "http//localhost:3003/map.json",
         tilesetUrl:
-          "https://0xsacul.github.io/crypto-unicorn-community-island/tileset.png",
-        //tilesetUrl: "http://localhost:5500/public/tileset.png",
+          "https://sunflower-land.com/testnet-assets/world/map-extruded.png",
       },
       player: {
         spawn: {
