@@ -1322,6 +1322,61 @@
                  "width":16.0436934630483,
                  "x":287.42106161461,
                  "y":431.47294760198
+                }, 
+                {
+                 "height":16.0436934630483,
+                 "id":77,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":22.1880867042157,
+                 "x":143.710530807305,
+                 "y":136.542072025943
+                }, 
+                {
+                 "height":17.4091141833077,
+                 "id":78,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28.673835125448,
+                 "x":389.486260454002,
+                 "y":107.52688172043
+                }, 
+                {
+                 "height":15.7023382829834,
+                 "id":79,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":22.8707970643455,
+                 "x":532.855436081242,
+                 "y":292.541389315583
+                }, 
+                {
+                 "height":16.726403823178,
+                 "id":80,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":23.89486260454,
+                 "x":124.253285543608,
+                 "y":291.175968595323
+                }, 
+                {
+                 "height":18.0918245434374,
+                 "id":81,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":18.7745349035672,
+                 "x":400.068271036013,
+                 "y":448.199351425158
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1392,7 +1447,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":77,
+ "nextobjectid":82,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.8.4",

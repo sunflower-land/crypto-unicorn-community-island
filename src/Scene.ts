@@ -235,8 +235,6 @@ export default class ExternalScene extends window.BaseScene {
             }
           );
 
-          console.log({ inventory });
-
           let introduction = unicorn.introduction;
 
           if (hasIngredients) {
@@ -357,8 +355,8 @@ export default class ExternalScene extends window.BaseScene {
 
     // For local testing, allow Scene refresh with spacebar
     this.events.on("shutdown", () => {
-      this.cache.tilemap.remove("local");
-      this.scene.remove("local");
+      this.cache.tilemap.remove("unicorn_island");
+      this.scene.remove("unicorn_island");
     });
     const spaceBar = this.input.keyboard.addKey("SPACE");
     spaceBar.on("down", () => {
@@ -366,7 +364,6 @@ export default class ExternalScene extends window.BaseScene {
     });
     const reset = this.input.keyboard.addKey("r");
     reset.on("down", async () => {
-      console.log("R DOWN");
       await api.reset();
       this.scene.start("default");
     });
@@ -421,7 +418,6 @@ export default class ExternalScene extends window.BaseScene {
       type: "loading",
     });
 
-    console.log({ progress: this.progress });
     if (!!this.progress?.hornMintedAt) {
       throw new Error(`Horn already minted`);
     }
@@ -445,10 +441,6 @@ export default class ExternalScene extends window.BaseScene {
 
   update() {
     super.update();
-    /* 
-          display player position for debugging
-      */
-    //console.log(this.currentPlayer.x, this.currentPlayer.y);
   }
 
   CheckPlayerDistance(x: number, y: number) {
