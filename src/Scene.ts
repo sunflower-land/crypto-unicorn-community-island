@@ -1,5 +1,23 @@
-import { Clothing, DefaultNPC } from "./types";
+import { Clothing } from "./types";
 import Phaser from "phaser";
+
+export const StardustNPC: Clothing = {
+  body: "Beige Farmer Potion",
+  hat: "Unicorn Horn",
+  hair: "Sun Spots",
+  shirt: "Red Farmer Shirt",
+  pants: "Farmer Pants",
+  tool: "Farmer Pitchfork",
+};
+
+export const GoblinNPC: Clothing = {
+  body: "Goblin Potion",
+  hat: "Unicorn Hat",
+  hair: "Sun Spots",
+  shirt: "SFL T-Shirt",
+  pants: "Farmer Pants",
+  tool: "Pirate Scimitar",
+};
 
 // Random names
 type UnicornName =
@@ -87,18 +105,12 @@ const api = new (window as any).CommunityAPI({
 
 export default class ExternalScene extends window.BaseScene {
   private progress: Progress = {
-    unicornsFedAt: {
-      blossom: 1,
-      moonbeam: 1,
-      sparklehoof: 1,
-      starlight: 1,
-      thunderdash: 1,
-    },
+    unicornsFedAt: {},
   };
 
   constructor() {
     super({
-      name: "local",
+      name: "unicorn_island",
       map: {
         tilesetUrl:
           "https://sunflower-land.com/testnet-assets/world/map-extruded.png",
@@ -196,6 +208,9 @@ export default class ExternalScene extends window.BaseScene {
                   {
                     text: "My children are starving and can use your help. If you can feed all 4 of my children I will reward you with your very own Unicorn Horn.",
                   },
+                  {
+                    text: "You can find them scattered around this island",
+                  },
                 ],
               });
             }
@@ -262,15 +277,34 @@ export default class ExternalScene extends window.BaseScene {
 
     this.initialiseNPCs([
       {
+        x: 314,
+        y: 256,
+        clothing: GoblinNPC,
+        onClick: () => {
+          window.openModal({
+            npc: {
+              name: "Nelly",
+              clothing: GoblinNPC,
+            },
+            type: "speaking",
+            messages: [
+              {
+                text: "Neighhhhhhhh! What a magical place! ",
+              },
+            ],
+          });
+        },
+      },
+      {
         x: 301,
         y: 464,
         npc: "Stardust",
-        clothing: DefaultNPC,
+        clothing: StardustNPC,
         onClick: () => {
           window.openModal({
             npc: {
               name: "Stardust",
-              clothing: DefaultNPC,
+              clothing: StardustNPC,
             },
             type: "speaking",
             messages: [
@@ -300,6 +334,12 @@ export default class ExternalScene extends window.BaseScene {
     spaceBar.on("down", () => {
       this.scene.start("default");
     });
+    const reset = this.input.keyboard.addKey("r");
+    reset.on("down", async () => {
+      console.log("R DOWN");
+      await api.reset();
+      this.scene.start("default");
+    });
   }
 
   async initialise() {
@@ -309,9 +349,10 @@ export default class ExternalScene extends window.BaseScene {
 
     const island = await api.loadIsland();
 
-    console.log({ island });
     if (island?.metadata) {
       this.progress = JSON.parse(island.metadata);
+    } else {
+      this.progress = { unicornsFedAt: {} };
     }
 
     window.closeModal();

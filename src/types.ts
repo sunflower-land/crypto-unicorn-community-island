@@ -9,15 +9,6 @@ export interface Clothing {
   tool?: string;
 }
 
-export const DefaultNPC: Clothing = {
-  body: "Goblin Potion",
-  hat: "Sleeping Otter",
-  hair: "Buzz Cut",
-  shirt: "SFL T-Shirt",
-  pants: "Farmer Pants",
-  tool: "Pirate Scimitar",
-};
-
 declare global {
   interface Window {
     BaseScene: any;
