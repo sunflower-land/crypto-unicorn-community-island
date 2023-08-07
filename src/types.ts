@@ -22,6 +22,7 @@ declare global {
   interface Window {
     BaseScene: any;
     openModal: any;
+    closeModal: any;
     ExternalScene: typeof ExternalScene;
   }
 }
