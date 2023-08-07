@@ -37,8 +37,15 @@ type Unicorn = {
   name: UnicornName;
   image: string;
   coordinates: { x: number; y: number };
-  requirements: Record<string, number>;
-  requirementLabel: string;
+  requirements: {
+    items: Record<string, number>;
+    label: string;
+  };
+  // Unicorn players get head start
+  promoRequirements: {
+    items: Record<string, number>;
+    label: string;
+  };
   introduction: string;
   conclusion: string;
 };
@@ -47,19 +54,33 @@ const UNICORNS: Unicorn[] = [
     name: "starlight",
     image: "http://localhost:3003/starlight.png",
     coordinates: { x: 405, y: 453 },
-    requirements: {},
-    requirementLabel: "",
     introduction: "Welcome stranger to our beautiful island.",
     conclusion: "Thank you for satisfying my hungry children!",
+
+    // UNUSED
+    requirements: {
+      items: {},
+      label: "",
+    },
+    promoRequirements: {
+      items: {},
+      label: "",
+    },
   },
   {
     name: "sparklehoof",
     image: "http://localhost:3003/sparklehoof.png",
     coordinates: { x: 541, y: 293 },
-    requirements: { Potato: 20 },
-    requirementLabel: "20 Potatoes",
+    requirements: {
+      items: { Potato: 200 },
+      label: "200 Potatoes",
+    },
+    promoRequirements: {
+      items: { Potato: 20 },
+      label: "20 Potatoes",
+    },
     introduction:
-      "Hey there! The name's Sparklehoof. To satisfy my hunger, I crave 20 potatoes!",
+      "Hey there! The name's Sparklehoof. To satisfy my hunger, I crave potatoes!",
     conclusion:
       "Ha-ha! You've cracked me up with your potatoes! Keep laughing and spreading joy!",
   },
@@ -67,8 +88,8 @@ const UNICORNS: Unicorn[] = [
     name: "thunderdash",
     image: "http://localhost:3003/thunderdash.png",
     coordinates: { x: 399, y: 110 },
-    requirements: { Carrot: 30 },
-    requirementLabel: "30 Carrots",
+    requirements: { items: { Carrot: 300 }, label: "300 Carrots" },
+    promoRequirements: { items: { Carrot: 30 }, label: "30 Carrots" },
     introduction:
       "Yo! Thunderdash here! I love racing through the fields, feeling the wind on my mane. A lightning-quick sugar carrot would be the ultimate fuel to keep my energy high!",
     conclusion:
@@ -78,8 +99,8 @@ const UNICORNS: Unicorn[] = [
     name: "blossom",
     image: "http://localhost:3003/blossom.png",
     coordinates: { x: 156, y: 142 },
-    requirements: { Cauliflower: 10 },
-    requirementLabel: "10 Cauliflowers",
+    requirements: { items: { Cauliflower: 100 }, label: "100 Cauliflowers" },
+    promoRequirements: { items: { Cauliflower: 10 }, label: "10 Cauliflowers" },
     introduction:
       "Greetings! I'm Blossom. I spend most of my time tending to the flowers and plants of Sunflower Land. A collection of cauliflowers would satisfy me!",
     conclusion:
@@ -89,10 +110,10 @@ const UNICORNS: Unicorn[] = [
     name: "moonbeam",
     image: "http://localhost:3003/moonbeam.png",
     coordinates: { x: 135, y: 294 },
-    requirements: { Sunflower: 100 },
-    requirementLabel: "100 Sunflowers",
+    requirements: { items: { Sunflower: 1000 }, label: "1000 Sunflowers" },
+    promoRequirements: { items: { Sunflower: 100 }, label: "100 Sunflowers" },
     introduction:
-      "Hello, kind stranger. I'm Moonbeam. I find solace in the moon's glow and seek knowledge from ancient tomes. However, I also need some sun in my life to survive. To satisfy my hunger, I desire 100 Sunflowers.",
+      "Hello, kind stranger. I'm Moonbeam. I find solace in the moon's glow and seek knowledge from ancient tomes. However, I also need some sun in my life to survive. To satisfy my hunger, I desire Sunflowers.",
     conclusion:
       "Greetings, wise one! Your gift of radiant Sunflowers has filled me with celestial wisdom. May the moonlight guide you on your journey to enlightenment!",
   },
@@ -225,12 +246,20 @@ export default class ExternalScene extends window.BaseScene {
             return;
           }
 
+          const user = api.user;
+          console.log({ user });
+
+          let requirements = unicorn.requirements;
+          if (api.user?.promoCode === "UNICORN") {
+            requirements = unicorn.promoRequirements;
+          }
+
           const inventory = api.game.inventory;
-          const hasIngredients = Object.keys(unicorn.requirements).every(
+          const hasIngredients = Object.keys(requirements.items).every(
             (name) => {
               return (
                 !!inventory[name] &&
-                inventory[name].gte(unicorn.requirements[name])
+                inventory[name].gte(requirements.items[name])
               );
             }
           );
@@ -248,7 +277,7 @@ export default class ExternalScene extends window.BaseScene {
                   text: "It looks like you have what I need!",
                   actions: [
                     {
-                      text: `Feed (${unicorn.requirementLabel})`,
+                      text: `Feed (${unicorn.requirements.label})`,
                       cb: () => {
                         this.feed(unicorn.name);
                       },
@@ -265,7 +294,7 @@ export default class ExternalScene extends window.BaseScene {
                   text: introduction,
                 },
                 {
-                  text: `Oh no, you don't have what I need. (${unicorn.requirementLabel})`,
+                  text: `Oh no, you don't have what I need. (${unicorn.requirements.label})`,
                 },
               ],
             });
@@ -441,16 +470,6 @@ export default class ExternalScene extends window.BaseScene {
 
   update() {
     super.update();
-  }
-
-  CheckPlayerDistance(x: number, y: number) {
-    let player_distance = Phaser.Math.Distance.Between(
-      this.currentPlayer.x,
-      this.currentPlayer.y,
-      x,
-      y
-    );
-    return player_distance > 40;
   }
 }
 
