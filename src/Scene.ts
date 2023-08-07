@@ -133,6 +133,7 @@ export default class ExternalScene extends window.BaseScene {
     super({
       name: "unicorn_island",
       map: {
+        padding: [1, 2],
         tilesetUrl:
           "https://sunflower-land.com/testnet-assets/world/map-extruded.png",
       },
