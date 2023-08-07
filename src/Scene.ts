@@ -59,9 +59,9 @@ const UNICORNS: Unicorn[] = [
     requirements: { Potato: 20 },
     requirementLabel: "20 Potatoes",
     introduction:
-      "Hey there! The name's Sparklehoof. I enjoy playing pranks and making others laugh. To satisfy my hunger, I crave 20 potatoes!",
+      "Hey there! The name's Sparklehoof. To satisfy my hunger, I crave 20 potatoes!",
     conclusion:
-      "Ha-ha! You've cracked me up with your potatoes! My mischievous hunger is now satisfied, and my gratitude knows no bounds. Keep laughing and spreading joy!",
+      "Ha-ha! You've cracked me up with your potatoes! Keep laughing and spreading joy!",
   },
   {
     name: "thunderdash",
@@ -92,7 +92,7 @@ const UNICORNS: Unicorn[] = [
     requirements: { Sunflower: 100 },
     requirementLabel: "100 Sunflowers",
     introduction:
-      "Hello, kind stranger. I'm Moonbeam. I find solace in the moon's glow and seek knowledge from ancient tomes. However, I also need some sun in my life to survive. To satisfy my hunger, I desire 100 Sunflowers",
+      "Hello, kind stranger. I'm Moonbeam. I find solace in the moon's glow and seek knowledge from ancient tomes. However, I also need some sun in my life to survive. To satisfy my hunger, I desire 100 Sunflowers.",
     conclusion:
       "Greetings, wise one! Your gift of radiant Sunflowers has filled me with celestial wisdom. May the moonlight guide you on your journey to enlightenment!",
   },
@@ -209,7 +209,7 @@ export default class ExternalScene extends window.BaseScene {
                     text: "My children are starving and can use your help. If you can feed all 4 of my children I will reward you with your very own Unicorn Horn.",
                   },
                   {
-                    text: "You can find them scattered around this island",
+                    text: "You can find them scattered around this island. Good luck!",
                   },
                 ],
               });
@@ -309,14 +309,44 @@ export default class ExternalScene extends window.BaseScene {
             type: "speaking",
             messages: [
               {
-                text: "Neighhhhhhhh!",
+                text: "Neighhhhhhhh, welcome to Unicorn Island!",
               },
               {
-                text: "Welcome to Unicorn Island! For a limited time, I'm giving Crypto Unicorn lootboxes to Unicorn Bumpkins.",
+                text: "Sunflower Land has partnered with Crypto Unicorns to bring you this cross-over event.",
               },
               {
-                text: "To be eligble for this airdrop, you must earn the Unicorn's respect and be given a special Horn wearable.",
+                text: "For a limited time I'm giving Crypto Unicorn lootboxes to Unicorns.",
               },
+              ...(this.progress.hornMintedAt
+                ? [
+                    {
+                      text: "Wow, that is a beautiful horn you have. You must be a unicorn!!!",
+                      cb: () =>
+                        window.open("docs.sunflower-land.com", "_blank"),
+                    },
+                    {
+                      text: "You might be eligble for the Lootbox giveaway!",
+                      actions: [
+                        {
+                          text: "View Giveaway Conditions",
+                          cb: () =>
+                            window.open("docs.sunflower-land.com", "_blank"),
+                        },
+                      ],
+                    },
+                  ]
+                : [
+                    {
+                      text: "Huh, that's strange. You don't look like a Unicorn.",
+                      actions: [
+                        {
+                          text: "View Giveaway Conditions",
+                          cb: () =>
+                            window.open("docs.sunflower-land.com", "_blank"),
+                        },
+                      ],
+                    },
+                  ]),
             ],
           });
         },
