@@ -432,7 +432,8 @@ export default class ExternalScene extends window.BaseScene {
       },
     };
 
-    const requirements = UNICORNS.find((u) => u.name === name)?.requirements;
+    const requirements = UNICORNS.find((u) => u.name === name)?.requirements
+      .items;
     await api.burn({
       metadata: JSON.stringify(progress),
       items: requirements,
