@@ -5,7 +5,7 @@ export const StardustNPC: Clothing = {
   body: "Beige Farmer Potion",
   hat: "Unicorn Horn",
   hair: "Sun Spots",
-  shirt: "Red Farmer Shirt",
+  shirt: "Blue Farmer Shirt",
   pants: "Farmer Pants",
   tool: "Farmer Pitchfork",
 };
