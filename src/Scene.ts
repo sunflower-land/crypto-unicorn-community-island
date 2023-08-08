@@ -14,7 +14,7 @@ export const GoblinNPC: Clothing = {
   body: "Goblin Potion",
   hat: "Unicorn Hat",
   hair: "Sun Spots",
-  shirt: "SFL T-Shirt",
+  shirt: "Red Farmer Shirt",
   pants: "Farmer Pants",
   tool: "Pirate Scimitar",
 };
