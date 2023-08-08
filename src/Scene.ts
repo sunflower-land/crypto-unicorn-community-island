@@ -361,7 +361,7 @@ export default class ExternalScene extends window.BaseScene {
                         ),
                     },
                     {
-                      text: "You might be eligble for the Lootbox giveaway!",
+                      text: "You might be eligible for the Lootbox giveaway!",
                       actions: [
                         {
                           text: "View Giveaway Conditions",
