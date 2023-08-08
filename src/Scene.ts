@@ -52,7 +52,8 @@ type Unicorn = {
 const UNICORNS: Unicorn[] = [
   {
     name: "starlight",
-    image: "http://localhost:3003/starlight.png",
+    image:
+      "https://sunflower-land.github.io/crypto-unicorn-community-island/starlight.png",
     coordinates: { x: 405, y: 453 },
     introduction: "Welcome stranger to our beautiful island.",
     conclusion: "Thank you for satisfying my hungry children!",
@@ -69,7 +70,8 @@ const UNICORNS: Unicorn[] = [
   },
   {
     name: "sparklehoof",
-    image: "http://localhost:3003/sparklehoof.png",
+    image:
+      "https://sunflower-land.github.io/crypto-unicorn-community-island/sparklehoof.png",
     coordinates: { x: 541, y: 293 },
     requirements: {
       items: { Potato: 200 },
@@ -86,7 +88,8 @@ const UNICORNS: Unicorn[] = [
   },
   {
     name: "thunderdash",
-    image: "http://localhost:3003/thunderdash.png",
+    image:
+      "https://sunflower-land.github.io/crypto-unicorn-community-island/thunderdash.png",
     coordinates: { x: 399, y: 110 },
     requirements: { items: { Carrot: 300 }, label: "300 Carrots" },
     promoRequirements: { items: { Carrot: 30 }, label: "30 Carrots" },
@@ -97,7 +100,8 @@ const UNICORNS: Unicorn[] = [
   },
   {
     name: "blossom",
-    image: "http://localhost:3003/blossom.png",
+    image:
+      "https://sunflower-land.github.io/crypto-unicorn-community-island/blossom.png",
     coordinates: { x: 156, y: 142 },
     requirements: { items: { Cauliflower: 100 }, label: "100 Cauliflowers" },
     promoRequirements: { items: { Cauliflower: 10 }, label: "10 Cauliflowers" },
@@ -108,7 +112,8 @@ const UNICORNS: Unicorn[] = [
   },
   {
     name: "moonbeam",
-    image: "http://localhost:3003/moonbeam.png",
+    image:
+      "https://sunflower-land.github.io/crypto-unicorn-community-island/moonbeam.png",
     coordinates: { x: 135, y: 294 },
     requirements: { items: { Sunflower: 1000 }, label: "1000 Sunflowers" },
     promoRequirements: { items: { Sunflower: 100 }, label: "100 Sunflowers" },
@@ -350,7 +355,10 @@ export default class ExternalScene extends window.BaseScene {
                     {
                       text: "Wow, that is a beautiful horn you have. You must be a unicorn!!!",
                       cb: () =>
-                        window.open("docs.sunflower-land.com", "_blank"),
+                        window.open(
+                          "https://docs.sunflower-land.com/player-guides/special-events/crypto-unicorns-quest",
+                          "_blank"
+                        ),
                     },
                     {
                       text: "You might be eligble for the Lootbox giveaway!",
@@ -358,7 +366,10 @@ export default class ExternalScene extends window.BaseScene {
                         {
                           text: "View Giveaway Conditions",
                           cb: () =>
-                            window.open("docs.sunflower-land.com", "_blank"),
+                            window.open(
+                              "https://docs.sunflower-land.com/player-guides/special-events/crypto-unicorns-quest",
+                              "_blank"
+                            ),
                         },
                       ],
                     },
