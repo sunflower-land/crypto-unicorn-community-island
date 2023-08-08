@@ -479,6 +479,18 @@ export default class ExternalScene extends window.BaseScene {
     this.progress = progress;
 
     window.closeModal();
+
+    window.openModal({
+      type: "speaking",
+      messages: [
+        {
+          text: "You can now equip your horn and become beautiful like me!",
+        },
+        {
+          text: "Return anytime - A unicorn's hunger is not satisfied for long.",
+        },
+      ],
+    });
   };
 
   update() {
