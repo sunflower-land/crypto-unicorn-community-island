@@ -395,19 +395,19 @@ export default class ExternalScene extends window.BaseScene {
     this.initialise();
 
     // For local testing, allow Scene refresh with spacebar
-    this.events.on("shutdown", () => {
-      this.cache.tilemap.remove("unicorn_island");
-      this.scene.remove("unicorn_island");
-    });
-    const spaceBar = this.input.keyboard.addKey("SPACE");
-    spaceBar.on("down", () => {
-      this.scene.start("default");
-    });
-    const reset = this.input.keyboard.addKey("r");
-    reset.on("down", async () => {
-      await api.reset();
-      this.scene.start("default");
-    });
+    // this.events.on("shutdown", () => {
+    //   this.cache.tilemap.remove("unicorn_island");
+    //   this.scene.remove("unicorn_island");
+    // });
+    // const spaceBar = this.input.keyboard.addKey("SPACE");
+    // spaceBar.on("down", () => {
+    //   this.scene.start("default");
+    // });
+    // const reset = this.input.keyboard.addKey("r");
+    // reset.on("down", async () => {
+    //   await api.reset();
+    //   this.scene.start("default");
+    // });
   }
 
   async initialise() {
