@@ -453,6 +453,15 @@ export default class ExternalScene extends window.BaseScene {
     this.progress = progress;
 
     window.closeModal();
+
+    window.openModal({
+      type: "speaking",
+      messages: [
+        {
+          text: "Thank you!",
+        },
+      ],
+    });
   };
 
   mint = async () => {
