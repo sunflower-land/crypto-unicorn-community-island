@@ -381,7 +381,10 @@ export default class ExternalScene extends window.BaseScene {
                         {
                           text: "View Giveaway Conditions",
                           cb: () =>
-                            window.open("docs.sunflower-land.com", "_blank"),
+                            window.open(
+                              "https://docs.sunflower-land.com/player-guides/special-events/crypto-unicorns-quest",
+                              "_blank"
+                            ),
                         },
                       ],
                     },
