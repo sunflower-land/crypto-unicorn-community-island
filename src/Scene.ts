@@ -255,10 +255,11 @@ export default class ExternalScene extends window.BaseScene {
           const user = api.user;
           console.log({ user });
 
-          let requirements = unicorn.requirements;
-          if (api.user?.promoCode === "UNICORN") {
-            requirements = unicorn.promoRequirements;
-          }
+          // TEMP
+          let requirements = unicorn.promoRequirements;
+          // if (api.user?.promoCode === "UNICORN") {
+          //   requirements = unicorn.promoRequirements;
+          // }
 
           const inventory = api.game.inventory;
           const hasIngredients = Object.keys(requirements.items).every(
